@@ -7,7 +7,7 @@
 #include <Adafruit_GFX.h>    // Core graphics library
 #include <Fonts/FreeMonoBoldOblique12pt7b.h>
 #include <Fonts/FreeSerif9pt7b.h>
-#include "Weather.h"
+#include "Weather1.h"
 
 #define TFT_DC D1
 #define TFT_CS D2
