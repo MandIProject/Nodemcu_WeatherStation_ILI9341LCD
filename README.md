@@ -21,4 +21,4 @@ So the drawSun, drawMoon and drawEvening will work according to IST.
   <li>Resize was done using normal photo editors</li>
 </ul>
 
-<img src="20210604_220707.jpg" width="100" height="100">
+<img src="20210604_220707.jpg" width="500" height="500">
