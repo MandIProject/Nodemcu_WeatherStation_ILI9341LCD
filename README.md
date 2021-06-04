@@ -20,3 +20,5 @@ So the drawSun, drawMoon and drawEvening will work according to IST.
   <li>Then converted from jpeg to c file bitmap format using <a>http://www.rinkydinkelectronics.com/t_imageconverter565.php</a></li>
   <li>Resize was done using normal photo editors</li>
 </ul>
+
+<img src="20210604_220707.jpg" width="100" height="100">
