@@ -2,7 +2,7 @@
 Simple weather station project using Nodemcu, ILI9341 LCD and Openweathermap api.
 For now it shows only IST time.
 So the drawSun, drawMoon and drawEvening will work according to IST.
-If you want to make this project:
+<p><strong>If you want to make this project:</strong></p>
 <ul>
   <li>Install the libraries mentioned in the WeatherStation.ino file using Arduino IDE's library manager</li>
   <li>The fonts used are freely available in Adafuit library. You can search and see the available fonts and use them</li>
