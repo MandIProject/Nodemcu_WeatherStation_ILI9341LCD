@@ -14,3 +14,9 @@ So the drawSun, drawMoon and drawEvening will work according to IST.
   <li>Don't forget to enter your Wifi name, Wifi password and blynk app authentication code in Weather1.h file</li>
   <li>To use any other time zone, just change the "Hour = Hour + 5" to your location's time difference from UTC -> "Hour = Hour + time_difference"</li>
 </ul>
+
+<ul>
+  <li>The icons used in this project were taken from <a>https://www.vecteezy.com/</a></li>
+  <li>Then converted from jpeg to c file bitmap format using <a>http://www.rinkydinkelectronics.com/t_imageconverter565.php</a></li>
+  <li>Resize was done using normal photo editors</li>
+</ul>
