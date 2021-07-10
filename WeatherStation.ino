@@ -7,7 +7,7 @@
 #include <Adafruit_GFX.h>    // Core graphics library
 #include <Fonts/FreeMonoBoldOblique12pt7b.h>
 #include <Fonts/FreeSerif9pt7b.h>
-#include "Weather1.h"
+#include "Weather.h"
 
 #define TFT_DC D1
 #define TFT_CS D2
@@ -29,6 +29,7 @@ void loop()
   tft.fillScreen(ILI9341_WHITE);
   blynk();
   openWeather();
+  openCovid();
   formatData();
 }
 
@@ -55,8 +56,13 @@ void connectWifi()
 
 void formatData()
 {
-  DynamicJsonBuffer jsonBuff;
+  DynamicJsonBuffer jsonBuff, jsonBuff1;
   JsonObject& root = jsonBuff.parseObject(jsonBuffer);
+  JsonObject& root1 = jsonBuff1.parseObject(covidData);
+
+  String totalCases = root1["cases"];
+  String totalDeaths = root1["deaths"];
+  String totalRecovered = root1["recovered"];
   
   unsigned long t = root["dt"];
   char Time[32];
@@ -83,15 +89,19 @@ void formatData()
   String weather = root["weather"][0]["main"];
   String weatherDescription = root["weather"][0]["description"];           
 
-  Serial.print("\n");
-  Serial.print(temp);
-  Serial.print("\nCity: ");
-  Serial.print(cityName);
+  Serial.print("\nCases: ");
+  Serial.println(totalCases);
+  Serial.print("\nDeaths: ");
+  Serial.println(totalDeaths);
 
   drawcurr_time_date(Time,Date);
   drawTemp_CityName(cityName,temp);
   drawfeels_like_humid(Humid,feels_like);
   drawWind_Weather(weather,windSpeed,weatherDescription);
+  drawStats();
+  drawTotalCases(totalCases);
+  drawTotalDeaths(totalDeaths);
+  drawTotalRecovered(totalRecovered);
   if(Hour >=0 && Hour <= 5)
     drawMoon();
   else if(Hour >=18)
@@ -100,6 +110,66 @@ void formatData()
     drawEvening();
   else
     drawSun();
+}
+
+void drawStats()
+{
+  int16_t x1,y1;
+  uint16_t w,h;
+  tft.drawRGBBitmap(60,40,statsBitmap,IMAGE_WIDTH,IMAGE_HEIGHT);
+  tft.setFont(&FreeMonoBoldOblique12pt7b);
+  tft.getTextBounds("Statistics India", 0, 200, &x1, &y1, &w, &h);
+  tft.setCursor(0,200);
+  tft.setTextColor(ILI9341_BLACK);
+  tft.print("Statistics India");
+  delay(5000);
+  tft.fillRect(x1,y1,w,h,ILI9341_WHITE);
+  tft.drawRect(x1,y1,w,h,ILI9341_WHITE);
+}
+
+void drawTotalRecovered(String totalRecovered)
+{
+  int16_t x1,y1;
+  uint16_t w,h;
+  tft.drawRGBBitmap(60,40,healthyBitmap,IMAGE_WIDTH,IMAGE_HEIGHT);
+  tft.setFont(&FreeMonoBoldOblique12pt7b);
+  tft.getTextBounds(totalRecovered, 65, 200, &x1, &y1, &w, &h);
+  tft.setCursor(65,200);
+  tft.setTextColor(ILI9341_BLACK);
+  tft.print(totalRecovered);
+  delay(5000);
+  tft.fillRect(x1,y1,w,h,ILI9341_WHITE);
+  tft.drawRect(x1,y1,w,h,ILI9341_WHITE);
+}
+
+void drawTotalDeaths(String totalDeaths)
+{
+  int16_t x1,y1;
+  uint16_t w,h;
+  tft.drawRGBBitmap(60,40,deadBitmap,IMAGE_WIDTH,IMAGE_HEIGHT);
+  tft.setFont(&FreeMonoBoldOblique12pt7b);
+  tft.getTextBounds(totalDeaths, 72, 200, &x1, &y1, &w, &h);
+  tft.setCursor(72,200);
+  tft.setTextColor(ILI9341_BLACK);
+  tft.print(totalDeaths);
+  delay(5000);
+  tft.fillRect(x1,y1,w,h,ILI9341_WHITE);
+  tft.drawRect(x1,y1,w,h,ILI9341_WHITE);
+}
+
+void drawTotalCases(String totalCases)
+{
+  int16_t x1,y1;
+  uint16_t w,h;
+  tft.drawRGBBitmap(60,40,virusBitmap,IMAGE_WIDTH,IMAGE_HEIGHT);
+  tft.setFont(&FreeMonoBoldOblique12pt7b);
+  tft.getTextBounds(totalCases, 65, 200, &x1, &y1, &w, &h);
+  tft.setCursor(65,200);
+  tft.setTextColor(ILI9341_BLACK);
+  tft.print(totalCases);
+  delay(5000);
+  tft.fillRect(x1,y1,w,h,ILI9341_WHITE);
+  tft.drawRect(x1,y1,w,h,ILI9341_WHITE);
 }
 
 void drawSun()
@@ -138,8 +208,8 @@ void drawMoon()
   uint16_t w,h;
   tft.drawRGBBitmap(60,40,moonBitmap,IMAGE_WIDTH,IMAGE_HEIGHT);
   tft.setFont(&FreeMonoBoldOblique12pt7b);
-  tft.getTextBounds("Night time", 40, 200, &x1, &y1, &w, &h);
-  tft.setCursor(40,200);
+  tft.getTextBounds("Night time", 50, 200, &x1, &y1, &w, &h);
+  tft.setCursor(50,200);
   tft.setTextColor(ILI9341_BLACK);
   tft.print("Night time");
   delay(5000);
@@ -243,6 +313,17 @@ void drawTemp_CityName(String cityName, String temp)
   tft.drawRect(x1,y1,w,h,ILI9341_WHITE);
   tft.fillRect(x2,y2,w1,h1,ILI9341_WHITE);
   tft.drawRect(x2,y2,w1,h1,ILI9341_WHITE);
+}
+
+void openCovid()
+{
+  WiFiClient wifi;
+  HttpClient client = HttpClient(wifi, serverAddress3, 80);
+
+  client.get("/countries/india");
+  String response = client.responseBody();
+
+  covidData = response;
 }
 
 void openWeather()
