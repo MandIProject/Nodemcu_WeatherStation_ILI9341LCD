@@ -17,7 +17,7 @@ So the drawSun, drawMoon and drawEvening will work according to IST.
 
 <ul>
   <li>The icons used in this project were taken from <a>https://www.vecteezy.com/</a></li>
-  <li>Then converted from jpeg to c file bitmap format using <a>http://www.rinkydinkelectronics.com/t_imageconverter565.php</a></li>
+  <li>Then convert from jpeg to c file bitmap format using <a>http://www.rinkydinkelectronics.com/t_imageconverter565.php</a></li>
   <li>Resize was done using normal photo editors</li>
 </ul>
 
