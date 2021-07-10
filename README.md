@@ -1,4 +1,4 @@
-# Nodemcu_WeatherStation_ILI9341LCD
+# Nodemcu_WeatherStation_ILI9341LCD and India Covid Statistics
 Simple weather station project using Nodemcu, ILI9341 LCD and Openweathermap api.
 For now it shows only IST time.
 So the drawSun, drawMoon and drawEvening will work according to IST.
