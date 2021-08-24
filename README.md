@@ -19,7 +19,8 @@ So the drawSun, drawMoon and drawEvening will work according to IST.
   <li>The icons used in this project were taken from <a>https://www.vecteezy.com/</a></li>
   <li>Then convert from jpeg to c file bitmap format using <a>http://www.rinkydinkelectronics.com/t_imageconverter565.php</a></li>
   <li>Resize was done using normal photo editors</li>
-  <li>Make a blynk app, set the virtual pin to V6 and connect it to the nodeMCU</li>
+  <li>Make a blynk app, set the virtual pin to V2 and connect it to the nodeMCU</li>
+  <li>Change the location though the app</li>
 </ul>
 
 <img src="20210604_220707.jpg" width="500" height="500">
